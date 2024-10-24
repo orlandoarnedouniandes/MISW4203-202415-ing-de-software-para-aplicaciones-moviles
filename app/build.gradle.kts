@@ -41,9 +41,11 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    // Room for local database (offline functionality)
-    implementation("androidx.room:room-runtime:2.5.1")
-    kapt("androidx.room:room-compiler:2.5.1")
+    // Room dependencies
+    implementation("androidx.room:room-runtime:2.4.2")
+    kapt("androidx.room:room-compiler:2.4.2")
+    // Optional - Coroutines support for Room
+    implementation("androidx.room:room-ktx:2.4.2")
 
     // ViewModel and LiveData for MVVM pattern
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
