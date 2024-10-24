@@ -9,8 +9,8 @@ import com.mobileapp.mymobileapp.models.AlbumEntity
 @Dao
 interface AlbumDao {
     @Query("SELECT * FROM albums")
-    suspend fun getAllAlbums(): List<AlbumEntity>
+    fun getAllAlbums(): List<AlbumEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(albums: List<AlbumEntity>)
+    fun insertAll(albums: List<AlbumEntity>)
 }
