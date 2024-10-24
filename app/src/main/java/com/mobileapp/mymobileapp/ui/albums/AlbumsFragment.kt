@@ -1,38 +1,58 @@
 package com.mobileapp.mymobileapp.ui.albums
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.mobileapp.mymobileapp.R
+import com.mobileapp.mymobileapp.data.repositories.AlbumRepository
+import com.mobileapp.mymobileapp.database.AlbumDatabase
 import com.mobileapp.mymobileapp.databinding.FragmentAlbumsBinding
+import com.mobileapp.mymobileapp.network.AlbumsApi
+import com.mobileapp.mymobileapp.network.RetrofitClient
+import com.mobileapp.mymobileapp.ui.adapters.AlbumsAdapter
 
-class AlbumsFragment : Fragment() {
+class AlbumsFragment : Fragment(R.layout.fragment_albums) {
 
-    private var _binding: FragmentAlbumsBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentAlbumsBinding
+    private lateinit var adapter: AlbumsAdapter
+    private lateinit var viewModel: AlbumsViewModel
 
-    private lateinit var albumsViewModel: AlbumsViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentAlbumsBinding.bind(view)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        albumsViewModel = ViewModelProvider(this).get(AlbumsViewModel::class.java)
+        // Retrofit API
+        val api = RetrofitClient.instance.create(AlbumsApi::class.java)
 
-        _binding = FragmentAlbumsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        // Room Database and DAO
+        val albumDao = AlbumDatabase.getDatabase(requireContext()).albumDao()
 
-        albumsViewModel.text.observe(viewLifecycleOwner) {
-            binding.textAlbums.text = it
-        }
+        // Repository
+        val repository = AlbumRepository(api, albumDao)
 
-        return root
+        // ViewModel Factory
+        val factory = AlbumsViewModelFactory(repository)
+
+        // ViewModel
+        viewModel = ViewModelProvider(this, factory).get(AlbumsViewModel::class.java)
+
+        setupRecyclerView()
+
+        viewModel.albums.observe(viewLifecycleOwner, Observer { albumList ->
+            adapter.submitList(albumList)
+        })
+
+        viewModel.fetchAlbums()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun setupRecyclerView() {
+        adapter = AlbumsAdapter()
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = this@AlbumsFragment.adapter
+        }
     }
 }
