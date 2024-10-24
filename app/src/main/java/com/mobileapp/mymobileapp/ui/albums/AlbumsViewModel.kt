@@ -1,13 +1,25 @@
 package com.mobileapp.mymobileapp.ui.albums
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.mobileapp.mymobileapp.data.repositories.AlbumRepository
+import com.mobileapp.mymobileapp.models.Album
+import com.mobileapp.mymobileapp.models.AlbumEntity
+import kotlinx.coroutines.launch
 
-class AlbumsViewModel : ViewModel() {
+class AlbumsViewModel(private val repository: AlbumRepository) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is Albums Fragment"
+    val albums = MutableLiveData<List<Album>>()
+
+    fun fetchAlbums() {
+        viewModelScope.launch {
+            try {
+                val albumList = repository.getAlbums()
+                albums.postValue(albumList)
+            } catch (e: Exception) {
+                // Handle errors appropriately
+            }
+        }
     }
-    val text: LiveData<String> = _text
 }

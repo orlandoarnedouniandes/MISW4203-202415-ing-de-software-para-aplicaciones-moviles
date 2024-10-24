@@ -1,38 +1,39 @@
 package com.mobileapp.mymobileapp.ui.albums
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import android.view.View
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.mobileapp.mymobileapp.R
 import com.mobileapp.mymobileapp.databinding.FragmentAlbumsBinding
+import com.mobileapp.mymobileapp.ui.adapters.AlbumsAdapter
 
-class AlbumsFragment : Fragment() {
+class AlbumsFragment : Fragment(R.layout.fragment_albums) {
 
-    private var _binding: FragmentAlbumsBinding? = null
-    private val binding get() = _binding!!
+    private val viewModel: AlbumsViewModel by viewModels()
+    private lateinit var binding: FragmentAlbumsBinding
+    private lateinit var adapter: AlbumsAdapter
 
-    private lateinit var albumsViewModel: AlbumsViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentAlbumsBinding.bind(view)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        albumsViewModel = ViewModelProvider(this).get(AlbumsViewModel::class.java)
+        setupRecyclerView()
 
-        _binding = FragmentAlbumsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        viewModel.albums.observe(viewLifecycleOwner, Observer { albumList ->
+            adapter.submitList(albumList)
+        })
 
-        albumsViewModel.text.observe(viewLifecycleOwner) {
-            binding.textAlbums.text = it
-        }
-
-        return root
+        viewModel.fetchAlbums()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun setupRecyclerView() {
+        adapter = AlbumsAdapter()
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = this@AlbumsFragment.adapter
+        }
     }
 }
