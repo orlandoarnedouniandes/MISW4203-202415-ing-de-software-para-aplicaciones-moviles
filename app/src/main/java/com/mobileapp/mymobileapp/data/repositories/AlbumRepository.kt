@@ -16,7 +16,6 @@ class AlbumRepository(private val api: AlbumsApi, private val albumDao: AlbumDao
                 val albumsFromNetwork = api.getAlbums()
                 Log.d("AlbumRepository", "Fetched ${albumsFromNetwork.size} albums from the network")
 
-                // Insert the network albums into the database
                 albumDao.insertAll(albumsFromNetwork.map { album ->
                     AlbumEntity(
                         album.id,
@@ -28,10 +27,10 @@ class AlbumRepository(private val api: AlbumsApi, private val albumDao: AlbumDao
                         album.recordLabel
                     )
                 })
-                albumsFromNetwork // Return the list
+                albumsFromNetwork
             } catch (e: Exception) {
                 Log.e("AlbumRepository", "Error fetching albums", e)
-                emptyList() // Return an empty list on failure
+                emptyList()
             }
         }
     }
