@@ -1,6 +1,7 @@
 package com.mobileapp.mymobileapp.ui.artists
 
 import android.os.Bundle
+
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.lifecycle.Observer
