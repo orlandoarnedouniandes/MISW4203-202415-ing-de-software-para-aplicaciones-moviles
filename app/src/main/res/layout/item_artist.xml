@@ -8,8 +8,8 @@
     <!-- ImageView for Artist Image -->
     <ImageView
         android:id="@+id/imageViewArtist"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/artist_image"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,19 +25,37 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@id/imageViewArtist"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- TextView for Artist Description -->
+
     <TextView
         android:id="@+id/textViewArtistDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/imageViewArtist"
         app:layout_constraintTop_toBottomOf="@id/textViewArtistName"
+        app:layout_constraintVertical_bias="0.200" />
+
+    <TextView
+        android:id="@+id/textViewArtistBirthDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/imageViewArtist"
+        app:layout_constraintTop_toBottomOf="@+id/textViewArtistDescription"
+        app:layout_constraintVertical_bias="0.200" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
