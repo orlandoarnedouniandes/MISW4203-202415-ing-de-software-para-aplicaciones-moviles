@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.mobileapp.mymobileapp.data.repositories.AlbumRepository
 import com.mobileapp.mymobileapp.models.Album
-import com.mobileapp.mymobileapp.models.AlbumEntity
 import kotlinx.coroutines.launch
 
 class AlbumsViewModel(private val repository: AlbumRepository) : ViewModel() {

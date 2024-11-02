@@ -1,6 +1,5 @@
 package com.mobileapp.mymobileapp.ui.adapters
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -33,8 +32,8 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>() {
     }
 
     class AlbumViewHolder(private val binding: ItemAlbumBinding) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(album: Album) {
-            // Bind album data to views
             binding.textViewAlbumName.text = album.name
             binding.textViewReleaseDate.text = DateUtils.extractYear(album.releaseDate.toString())
             binding.textViewArtistName.text = album.performers.get(0).name
@@ -44,5 +43,6 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>() {
                     .centerCrop())
                 .into(binding.imageViewCover)
         }
+
     }
 }
