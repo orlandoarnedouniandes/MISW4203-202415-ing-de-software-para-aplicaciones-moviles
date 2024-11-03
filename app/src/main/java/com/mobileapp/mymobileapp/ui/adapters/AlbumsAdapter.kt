@@ -3,8 +3,11 @@ package com.mobileapp.mymobileapp.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.mobileapp.mymobileapp.databinding.ItemAlbumBinding
 import com.mobileapp.mymobileapp.models.Album
+import com.mobileapp.mymobileapp.util.DateUtils
 
 
 class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>() {
@@ -29,9 +32,17 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>() {
     }
 
     class AlbumViewHolder(private val binding: ItemAlbumBinding) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(album: Album) {
-            // Bind album data to views
             binding.textViewAlbumName.text = album.name
+            binding.textViewReleaseDate.text = DateUtils.extractYear(album.releaseDate.toString())
+            binding.textViewArtistName.text = album.performers.get(0).name
+            Glide.with(binding.root.context)
+                .load(album.cover)
+                .apply(RequestOptions()
+                    .centerCrop())
+                .into(binding.imageViewCover)
         }
+
     }
 }
