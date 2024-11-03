@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@id/textViewAlbumName"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="Artist Name" />
-
+  
     <TextView
         android:id="@+id/textViewReleaseDate"
         android:layout_width="0dp"

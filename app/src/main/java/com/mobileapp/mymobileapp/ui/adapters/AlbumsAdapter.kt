@@ -43,6 +43,5 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>() {
                     .centerCrop())
                 .into(binding.imageViewCover)
         }
-
     }
 }

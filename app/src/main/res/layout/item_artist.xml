@@ -30,8 +30,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- TextView for Artist Description -->
-
     <TextView
         android:id="@+id/textViewArtistDescription"
         android:layout_width="0dp"

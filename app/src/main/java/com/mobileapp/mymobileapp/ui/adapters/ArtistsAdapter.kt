@@ -47,6 +47,5 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
                     .centerCrop())
             .into(binding.imageViewArtist)
         }
-
     }
 }
