@@ -3,8 +3,11 @@ package com.mobileapp.mymobileapp.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.mobileapp.mymobileapp.databinding.ItemArtistBinding
 import com.mobileapp.mymobileapp.models.Artist
+import com.mobileapp.mymobileapp.util.DateUtils
 
 class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
 
@@ -29,9 +32,20 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
 
     class ArtistViewHolder(private val binding: ItemArtistBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(artist: Artist) {
-            // Bind artist data to views
             binding.textViewArtistName.text = artist.name
-            // Add other artist properties as needed (e.g., image, description)
+            binding.textViewArtistDescription.text = if (artist.description.length > 50) {
+                artist.description.substring(0, 50) + "..."
+            } else {
+                artist.description
+            }
+
+            binding.textViewArtistBirthDate.text = DateUtils.extractYear(artist.birthDate.toString())
+
+            Glide.with(binding.root.context)
+                .load(artist.image)
+                .apply(RequestOptions()
+                    .centerCrop())
+            .into(binding.imageViewArtist)
         }
     }
 }

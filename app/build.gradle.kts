@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.mobileapp.mymobileapp"
-        minSdk = 24
+        minSdk = 21
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -19,6 +19,9 @@ android {
     }
 
     buildTypes {
+        create("debugmisw"){
+            isDebuggable = true
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -41,6 +44,8 @@ dependencies {
     // Retrofit for network requests
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.github.bumptech.glide:glide:4.15.0")
+    kapt("com.github.bumptech.glide:compiler:4.15.0")
 
     // Room dependencies
     implementation("androidx.room:room-runtime:2.4.2")
