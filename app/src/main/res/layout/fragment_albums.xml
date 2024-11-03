@@ -21,7 +21,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/item_album" />
+        tools:listitem="@layout/item_album"
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/editTextText"
