@@ -12,9 +12,9 @@
         android:title="@string/title_artists" />
 
     <item
-        android:id="@+id/navigation_collectionists"
+        android:id="@+id/navigation_collectors"
         android:icon="@drawable/ic_playlist_add_circle_24px"
-        android:title="@string/title_collectionists" />
+        android:title="@string/title_collectors" />
 
 
 </menu>
