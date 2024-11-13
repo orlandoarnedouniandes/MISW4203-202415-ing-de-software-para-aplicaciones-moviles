@@ -20,7 +20,19 @@ class ArtistRepository(private val api: ArtistsApi, private val artistDao: Artis
                         name = artist.name,
                         image = artist.image,
                         description = artist.description,
-                        birthDate = artist.birthDate
+                        date = artist.birthDate,
+                    )
+                })
+
+                val bandsFromNetwork = api.getBands()
+
+                artistDao.insertAll(bandsFromNetwork.map { artist ->
+                    ArtistEntity(
+                        id = artist.id,
+                        name = artist.name,
+                        image = artist.image,
+                        description = artist.description,
+                        date = artist.creationDate,
                     )
                 })
 
@@ -30,21 +42,22 @@ class ArtistRepository(private val api: ArtistsApi, private val artistDao: Artis
                         name = entity.name,
                         image = entity.image,
                         description = entity.description,
-                        birthDate = entity.birthDate,
                         albums = emptyList(),
-                        performerPrizes = emptyList()
+                        performerPrizes = emptyList(),
+                        birthDate = entity.date
                     )
                 }
             } catch (e: Exception) {
+                e.printStackTrace()
                 artistDao.getAllArtists().map { entity ->
                     Artist(
                         id = entity.id,
                         name = entity.name,
                         image = entity.image,
                         description = entity.description,
-                        birthDate = entity.birthDate,
                         albums = emptyList(),
-                        performerPrizes = emptyList()
+                        performerPrizes = emptyList(),
+                        birthDate = entity.date
                     )
                 }
             }
