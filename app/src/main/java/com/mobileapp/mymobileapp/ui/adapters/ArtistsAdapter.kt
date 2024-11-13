@@ -1,5 +1,6 @@
 package com.mobileapp.mymobileapp.ui.adapters
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,10 +9,17 @@ import com.bumptech.glide.request.RequestOptions
 import com.mobileapp.mymobileapp.databinding.ItemArtistBinding
 import com.mobileapp.mymobileapp.models.Artist
 import com.mobileapp.mymobileapp.util.DateUtils
+import com.squareup.picasso.Picasso
 
-class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
+class ArtistsAdapter(
+    private val itemClickListener: OnItemClickListener
+): RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
 
     private val artists = mutableListOf<Artist>()
+
+    interface OnItemClickListener {
+        fun onItemClick(artist: Artist)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistViewHolder {
         val binding = ItemArtistBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -30,22 +38,20 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
         notifyDataSetChanged()
     }
 
-    class ArtistViewHolder(private val binding: ItemArtistBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ArtistViewHolder(private val binding: ItemArtistBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(artist: Artist) {
+            Picasso.get().load(artist.image).into(binding.imageViewArtist)
             binding.textViewArtistName.text = artist.name
             binding.textViewArtistDescription.text = if (artist.description.length > 50) {
                 artist.description.substring(0, 50) + "..."
             } else {
                 artist.description
             }
-
             binding.textViewArtistBirthDate.text = DateUtils.extractYear(artist.birthDate.toString())
 
-            Glide.with(binding.root.context)
-                .load(artist.image)
-                .apply(RequestOptions()
-                    .centerCrop())
-            .into(binding.imageViewArtist)
+            binding.root.setOnClickListener {
+                itemClickListener.onItemClick(artist)
+            }
         }
     }
 }
