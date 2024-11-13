@@ -12,4 +12,5 @@
     <string name="bot_n_flotante">Botón flotante</string>
     <string name="collector_photo">Collector Photo</string>
     <string name="total_albums">Total Albums: %1$d</string>
+    <string name="artist_photo">Artist Photo</string>
 </resources>
