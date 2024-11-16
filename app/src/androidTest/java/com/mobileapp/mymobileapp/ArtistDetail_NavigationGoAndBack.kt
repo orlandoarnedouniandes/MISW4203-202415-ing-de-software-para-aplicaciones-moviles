@@ -3,9 +3,11 @@ package com.mobileapp.mymobileapp
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -25,14 +27,14 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class Artist_TextLoads {
+class ArtistDetail_NavigationGoAndBack {
 
     @Rule
     @JvmField
     var mActivityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun artist_TextLoads() {
+    fun artistDetail_NavigationGoAndBack() {
         val bottomNavigationItemView = onView(
             allOf(
                 withId(R.id.navigation_artists), withContentDescription("Artists"),
@@ -47,36 +49,53 @@ class Artist_TextLoads {
             )
         )
         bottomNavigationItemView.perform(click())
-
-        Thread.sleep(3000)
-
+        Thread.sleep(2000)
+        val recyclerView = onView(
+            allOf(
+                withId(R.id.recyclerViewArtists),
+                childAtPosition(
+                    withId(R.id.fragment_artist),
+                    1
+                )
+            )
+        )
+        recyclerView.perform(actionOnItemAtPosition<ViewHolder>(0, click()))
+        Thread.sleep(2000)
         val textView = onView(
             allOf(
-                withId(R.id.textViewArtistName), withText("Rubén Blades Bellido de Luna"),
-                withParent(withParent(IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java))),
+                withId(R.id.artistNameTextView), withText("Rubén Blades Bellido de Luna"),
+                withParent(withParent(IsInstanceOf.instanceOf(android.widget.ScrollView::class.java))),
                 isDisplayed()
             )
         )
         textView.check(matches(isDisplayed()))
 
+        val appCompatImageButton = onView(
+            allOf(
+                withContentDescription("Navigate up"),
+                childAtPosition(
+                    allOf(
+                        withId(com.bumptech.glide.R.id.action_bar),
+                        childAtPosition(
+                            withId(com.bumptech.glide.R.id.action_bar_container),
+                            0
+                        )
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatImageButton.perform(click())
+        Thread.sleep(2000)
         val textView2 = onView(
             allOf(
-                withId(R.id.textViewArtistDescription),
-                withText("Es un cantante, compositor, músico, actor, abogado..."),
-                withParent(withParent(IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java))),
+                withId(R.id.screenName), withText("Artists"),
+                withParent(withParent(withId(R.id.fragment_artist))),
                 isDisplayed()
             )
         )
-        textView2.check(matches(isDisplayed()))
-
-        val textView3 = onView(
-            allOf(
-                withId(R.id.textViewArtistBirthDate), withText("1948"),
-                withParent(withParent(IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java))),
-                isDisplayed()
-            )
-        )
-        textView3.check(matches(isDisplayed()))
+        textView2.check(matches(withText("Artists")))
     }
 
     private fun childAtPosition(
