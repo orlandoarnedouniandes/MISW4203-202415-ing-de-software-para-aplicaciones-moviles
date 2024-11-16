@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.mobileapp.mymobileapp.data.dao.ArtistDao
 import com.mobileapp.mymobileapp.models.ArtistEntity
 
-@Database(entities = [ArtistEntity::class], version = 1, exportSchema = false)
+@Database(entities = [ArtistEntity::class], version = 2, exportSchema = false)
 abstract class ArtistDatabase : RoomDatabase() {
 
     abstract fun artistDao(): ArtistDao

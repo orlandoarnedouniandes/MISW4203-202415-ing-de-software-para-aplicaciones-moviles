@@ -1,5 +1,6 @@
 package com.mobileapp.mymobileapp.ui.artists
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,15 +14,21 @@ import kotlinx.coroutines.launch
 class ArtistsViewModel(private val api: ArtistRepository) : ViewModel() {
 
     private val _artists = MutableLiveData<List<Artist>>()
-    val artists: LiveData<List<Artist>> = _artists
+    val artists: LiveData<List<Artist>> get()= _artists
 
-    fun fetchArtists() {
+    init {
+        fetchArtists()
+    }
+
+    private fun fetchArtists() {
         viewModelScope.launch {
             try {
                 val fetchedArtists = api.getArtists()
-                _artists.value = fetchedArtists
+                val currentArtists = _artists.value.orEmpty().toMutableList()
+                currentArtists.addAll(fetchedArtists)
+                _artists.value = currentArtists
             } catch (e: Exception) {
-                // Handle error
+                Log.e("ArtistsViewModel", "Error fetching artists", e)
             }
         }
     }
