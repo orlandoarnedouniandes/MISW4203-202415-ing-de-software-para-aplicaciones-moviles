@@ -3,6 +3,7 @@
     android:id="@+id/fragment_artist"
     >
 
+
     <data>
         <variable
             name="viewModel"
