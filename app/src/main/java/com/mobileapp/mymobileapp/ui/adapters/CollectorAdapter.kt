@@ -3,27 +3,26 @@ package com.mobileapp.mymobileapp.ui.adapters
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.mobileapp.mymobileapp.R
 import com.mobileapp.mymobileapp.databinding.ItemCollectorBinding
 import com.mobileapp.mymobileapp.models.Collector
-import com.squareup.picasso.Picasso
-import java.util.Locale
 
 class CollectorAdapter(
-    private var collectors: List<Collector>, private val itemClickListener: OnItemClickListener
+    private val itemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<CollectorAdapter.CollectorViewHolder>() {
 
-    private var filteredCollectors: List<Collector> = collectors
+    private var collectors: List<Collector> = emptyList()
+    private var filteredCollectors: List<Collector> = emptyList()
 
     interface OnItemClickListener {
         fun onItemClick(collector: Collector)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectorViewHolder {
-        val binding =
-            ItemCollectorBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemCollectorBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CollectorViewHolder(binding)
     }
 
@@ -34,19 +33,17 @@ class CollectorAdapter(
     override fun getItemCount(): Int = filteredCollectors.size
 
     fun updateCollectors(newCollectors: List<Collector>) {
+        val diffResult = DiffUtil.calculateDiff(CollectorDiffCallback(collectors, newCollectors))
         collectors = newCollectors
         filteredCollectors = newCollectors
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     fun filter(query: String) {
-        filteredCollectors = if (query.isEmpty()) {
+        filteredCollectors = if (query.isBlank()) {
             collectors
         } else {
-            collectors.filter {
-                it.name.lowercase(Locale.getDefault())
-                    .contains(query.lowercase(Locale.getDefault()))
-            }
+            collectors.filter { it.name.contains(query, ignoreCase = true) }
         }
         notifyDataSetChanged()
     }
@@ -54,24 +51,48 @@ class CollectorAdapter(
     inner class CollectorViewHolder(private val binding: ItemCollectorBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(collector: Collector) {
-            Picasso.get().load(collector.favoritePerformers.first().image)
-                .into(binding.imageViewCollectorPhoto)
-            binding.textViewCollectorName.text = collector.name
-            binding.textViewCollectorEmail.text = collector.email
-            binding.textViewCollectorTelephone.text = collector.telephone
-            val totalAlbumsFormatted = String.format(
-                binding.root.context.getString(R.string.total_albums),
-                collector.collectorAlbums.size
-            )
-            binding.textViewTotalAlbums.text = totalAlbumsFormatted
+            with(binding) {
+                // Load collector image with Glide
+                val imageUrl = collector.favoritePerformers.firstOrNull()?.image
+                Glide.with(root.context)
+                    .load(imageUrl)
+                    .placeholder(android.R.color.darker_gray)
+                    .error(android.R.drawable.stat_notify_error)
+                    .centerCrop()
+                    .into(imageViewCollectorPhoto)
 
-            binding.root.setOnClickListener {
-                val bundle = Bundle().apply {
-                    putString("collectorName", collector.name)
+                textViewCollectorName.text = collector.name
+                textViewCollectorEmail.text = collector.email
+                textViewCollectorTelephone.text = collector.telephone
+                textViewTotalAlbums.text = root.context.getString(
+                    R.string.total_albums,
+                    collector.collectorAlbums.size
+                )
+                root.setOnClickListener {
+                    val bundle = Bundle().apply {
+                        putString("collectorName", collector.name)
+                    }
+                    itemClickListener.onItemClick(collector)
                 }
-                itemClickListener.onItemClick(collector)
             }
         }
     }
-}
 
+    private class CollectorDiffCallback(
+        private val oldList: List<Collector>,
+        private val newList: List<Collector>
+    ) : DiffUtil.Callback() {
+
+        override fun getOldListSize(): Int = oldList.size
+
+        override fun getNewListSize(): Int = newList.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].id == newList[newItemPosition].id
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition] == newList[newItemPosition]
+        }
+    }
+}

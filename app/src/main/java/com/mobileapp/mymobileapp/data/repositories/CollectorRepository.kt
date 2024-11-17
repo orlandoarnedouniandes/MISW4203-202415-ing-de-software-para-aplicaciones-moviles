@@ -17,15 +17,16 @@ class CollectorRepository(
     val collectors: LiveData<List<CollectorEntity>> = database.collectorDao().getAllCollectors()
 
     suspend fun getCollectors(): List<Collector> {
-        return try {
-            val apiCollectors = collectorsApi.getCollectors()
-            withContext(Dispatchers.IO) {
+        return withContext(Dispatchers.IO) {
+            try {
+                val apiCollectors = collectorsApi.getCollectors()
                 database.collectorDao().insertAll(apiCollectors)
+                apiCollectors.map { it.toCollector() }
+            } catch (e: Exception) {
+                Log.e("CollectorRepository", "Error fetching collectors", e)
+                // If network call fails, fallback to database cache
+                database.collectorDao().getAllCollectors().value?.map { it.toCollector() } ?: emptyList()
             }
-            apiCollectors.map { it.toCollector() }
-        } catch (e: Exception) {
-            Log.e("CollectorRepository", "Error fetching collectors", e)
-            emptyList()
         }
     }
 
@@ -40,5 +41,4 @@ class CollectorRepository(
             favoritePerformers = favoritePerformers
         )
     }
-
 }

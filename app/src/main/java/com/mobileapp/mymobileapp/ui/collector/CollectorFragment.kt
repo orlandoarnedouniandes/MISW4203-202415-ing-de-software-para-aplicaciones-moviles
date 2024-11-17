@@ -47,27 +47,28 @@ class CollectorFragment : Fragment(R.layout.fragment_collector) {
         val layoutManager = LinearLayoutManager(context)
         binding.recyclerViewCollectors.layoutManager = layoutManager
 
-        viewModel.collectors.observe(viewLifecycleOwner, { collectors ->
+        adapter = CollectorAdapter(object : CollectorAdapter.OnItemClickListener {
+            override fun onItemClick(collector: Collector) {
+                val bundle = Bundle().apply {
+                    putString("collectorName", collector.name)
+                    putString("collectorTelephone", collector.telephone)
+                    putString("collectorEmail", collector.email)
+                    putParcelableArrayList("collectorComments", ArrayList(collector.comments))
+                    putParcelableArrayList("collectorFavoriteAlbums", ArrayList(collector.collectorAlbums))
+                    putParcelableArrayList("collectorFavoritePerformers", ArrayList(collector.favoritePerformers))
+                }
+                findNavController().navigate(R.id.action_navigation_collectors_to_collectorDetailFragment, bundle)
+            }
+        })
+        binding.recyclerViewCollectors.adapter = adapter
+        viewModel.collectors.observe(viewLifecycleOwner) { collectors ->
             if (collectors != null) {
-                adapter = CollectorAdapter(collectors, object : CollectorAdapter.OnItemClickListener {
-                    override fun onItemClick(collector: Collector) {
-                        val bundle = Bundle().apply {
-                            putString("collectorName", collector.name)
-                            putString("collectorTelephone", collector.telephone)
-                            putString("collectorEmail", collector.email)
-                            putParcelableArrayList("collectorComments", ArrayList(collector.comments))
-                            putParcelableArrayList("collectorFavoriteAlbums", ArrayList(collector.collectorAlbums))
-                            putParcelableArrayList("collectorFavoritePerformers", ArrayList(collector.favoritePerformers))
-                        }
-                        findNavController().navigate(R.id.action_navigation_collectors_to_collectorDetailFragment, bundle)
-                    }
-                })
-                binding.recyclerViewCollectors.adapter = adapter
-                setupSearchView()
+                adapter.updateCollectors(collectors)
             } else {
                 Log.d("CollectorFragment", "No collectors found")
             }
-        })
+        }
+        setupSearchView()
     }
 
     private fun setupSearchView() {
