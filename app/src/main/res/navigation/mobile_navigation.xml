@@ -57,4 +57,11 @@
             app:destination="@id/navigation_artists" />
     </fragment>
 
+    <fragment
+        android:id="@+id/albumDetailFragment"
+        android:name="com.mobileapp.mymobileapp.ui.albums.AlbumDetailFragment"
+        android:label="@string/title_albums"
+        tools:layout="@layout/fragment_album_detail" >
+    </fragment>
+
 </navigation>
