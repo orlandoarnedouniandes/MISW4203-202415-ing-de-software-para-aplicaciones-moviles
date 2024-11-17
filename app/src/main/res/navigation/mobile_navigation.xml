@@ -30,7 +30,8 @@
     <fragment
         android:id="@+id/navigation_collectors"
         android:name="com.mobileapp.mymobileapp.ui.collector.CollectorFragment"
-        tools:layout="@layout/fragment_collector">
+        tools:layout="@layout/fragment_collector"
+        android:label="@string/title_collectors">
         <action
             android:id="@+id/action_navigation_collectors_to_collectorDetailFragment"
             app:destination="@id/collectorDetailFragment" />
@@ -39,7 +40,7 @@
     <fragment
         android:id="@+id/collectorDetailFragment"
         android:name="com.mobileapp.mymobileapp.ui.collector.CollectorDetailFragment"
-        tools:layout="@layout/fragment_collector_detail" >
+        tools:layout="@layout/fragment_collector_detail">
         <action
             android:id="@+id/action_collectorDetailFragment_to_navigation_collectors"
             app:destination="@id/navigation_collectors"
