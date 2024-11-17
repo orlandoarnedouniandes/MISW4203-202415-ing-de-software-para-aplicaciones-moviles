@@ -53,6 +53,11 @@ class CollectorFragment : Fragment(R.layout.fragment_collector) {
                     override fun onItemClick(collector: Collector) {
                         val bundle = Bundle().apply {
                             putString("collectorName", collector.name)
+                            putString("collectorTelephone", collector.telephone)
+                            putString("collectorEmail", collector.email)
+                            putParcelableArrayList("collectorComments", ArrayList(collector.comments))
+                            putParcelableArrayList("collectorFavoriteAlbums", ArrayList(collector.collectorAlbums))
+                            putParcelableArrayList("collectorFavoritePerformers", ArrayList(collector.favoritePerformers))
                         }
                         findNavController().navigate(R.id.action_navigation_collectors_to_collectorDetailFragment, bundle)
                     }
