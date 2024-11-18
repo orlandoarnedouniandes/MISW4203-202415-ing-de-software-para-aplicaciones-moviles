@@ -32,6 +32,7 @@ class AlbumsNombreAlbum {
                 isDisplayed()
             )
         )
+        Thread.sleep(2000)
         textView.check(matches(withText("Buscando América")))
 
     }

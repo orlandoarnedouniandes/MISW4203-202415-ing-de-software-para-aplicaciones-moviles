@@ -3,11 +3,13 @@ package com.mobileapp.mymobileapp
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
+import androidx.test.espresso.matcher.ViewMatchers.withClassName
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -17,66 +19,41 @@ import androidx.test.filters.LargeTest
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
+import org.hamcrest.Matchers.`is`
 import org.hamcrest.TypeSafeMatcher
-import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class Artist_TextLoads {
+class AlbumDetalleCancionTest {
 
     @Rule
     @JvmField
     var mActivityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun artist_TextLoads() {
-        val bottomNavigationItemView = onView(
+    fun albumDetalleCancionTest() {
+        val recyclerView = onView(
             allOf(
-                withId(R.id.navigation_artists), withContentDescription("Artists"),
+                withId(R.id.recyclerView),
                 childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_view),
-                        0
-                    ),
-                    1
-                ),
-                isDisplayed()
+                    withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
+                    3
+                )
             )
         )
-        bottomNavigationItemView.perform(click())
-
-        Thread.sleep(3000)
+        recyclerView.perform(actionOnItemAtPosition<ViewHolder>(0, click()))
 
         val textView = onView(
             allOf(
-                withId(R.id.textViewArtistName), withText("Rubén Blades Bellido de Luna"),
-                withParent(withParent(IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java))),
+                withId(R.id.textViewSongName), withText("Decisiones"),
+                withParent(withParent(withId(R.id.recyclerView))),
                 isDisplayed()
             )
         )
         textView.check(matches(isDisplayed()))
-
-        val textView2 = onView(
-            allOf(
-                withId(R.id.textViewArtistDescription),
-                withText("Es un cantante, compositor, músico, actor, abogado..."),
-                withParent(withParent(IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java))),
-                isDisplayed()
-            )
-        )
-        textView2.check(matches(isDisplayed()))
-
-        val textView3 = onView(
-            allOf(
-                withId(R.id.textViewArtistBirthDate), withText("1948"),
-                withParent(withParent(IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java))),
-                isDisplayed()
-            )
-        )
-        textView3.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(

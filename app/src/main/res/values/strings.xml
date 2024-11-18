@@ -7,8 +7,11 @@
     <string name="album_cover">Album Cover</string>
     <string name="title_artists">Artists</string>
     <string name="artist_image">Image</string>
-    <string name="title_collectionists">Collectionists</string>
+    <string name="title_collectors">Collectors</string>
     <string name="search_album">Search album</string>
     <string name="bot_n_flotante">Botón flotante</string>
-
+    <string name="collector_photo">Collector Photo</string>
+    <string name="total_albums">%1$d Albums</string>
+    <string name="artist_photo">Artist Photo</string>
+    <string name="songs">Canciones</string>
 </resources>

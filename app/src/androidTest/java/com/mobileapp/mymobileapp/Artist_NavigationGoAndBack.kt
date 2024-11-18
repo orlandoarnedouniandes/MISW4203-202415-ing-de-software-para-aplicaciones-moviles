@@ -47,10 +47,12 @@ class Artist_NavigationGoAndBack {
         )
         bottomNavigationItemView.perform(click())
 
+        Thread.sleep(3000)
+
         val textView = onView(
             allOf(
-                withId(R.id.text_artists), withText("Artists"),
-                withParent(withParent(withId(R.id.nav_host_fragment_activity_main))),
+                withId(R.id.screenName), withText("Artists"),
+                withParent(withParent(withId(R.id.fragment_artist))),
                 isDisplayed()
             )
         )
@@ -73,6 +75,8 @@ class Artist_NavigationGoAndBack {
             )
         )
         appCompatImageButton.perform(click())
+
+        Thread.sleep(3000)
 
         val textView2 = onView(
             allOf(

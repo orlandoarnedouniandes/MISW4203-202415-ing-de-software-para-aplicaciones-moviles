@@ -3,66 +3,54 @@ package com.mobileapp.mymobileapp
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingResource
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withParent
+import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.assertion.ViewAssertions.*
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
+import org.hamcrest.Matchers.`is`
 import org.hamcrest.TypeSafeMatcher
+import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.concurrent.TimeUnit
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class Artist_ImageLoads {
+class AlbumDetalleTest {
 
     @Rule
     @JvmField
     var mActivityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
-    private var callback: IdlingResource.ResourceCallback? = null
-
     @Test
-    fun artist_ImageLoads() {
-        val bottomNavigationItemView = onView(
+    fun cargaAlbumDetalleTest() {
+        val recyclerView = onView(
             allOf(
-                withId(R.id.navigation_artists), withContentDescription("Artists"),
+                withId(R.id.recyclerView),
                 childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_view),
-                        0
-                    ),
-                    1
-                ),
-                isDisplayed()
+                    withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
+                    3
+                )
             )
         )
-        bottomNavigationItemView.perform(click())
+        recyclerView.perform(actionOnItemAtPosition<ViewHolder>(0, click()))
 
-        Thread.sleep(3000)
-
-        val imageView = onView(
+        val textView = onView(
             allOf(
-                withId(R.id.imageViewArtist),
-                withContentDescription("Artist Photo"),
-                isDescendantOfA(childAtPosition(withId(R.id.recyclerViewArtists), 0)),
-                withParent(withParent(withId(R.id.recyclerViewArtists))),
+                withId(R.id.albumNameTextView), withText("Buscando América"),
+                withParent(withParent(IsInstanceOf.instanceOf(android.widget.ScrollView::class.java))),
                 isDisplayed()
             )
         )
-        imageView.check(matches(isDisplayed()))
+        textView.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(

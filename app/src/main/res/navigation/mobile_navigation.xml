@@ -14,29 +14,54 @@
     <fragment
         android:id="@+id/navigation_artists"
         android:name="com.mobileapp.mymobileapp.ui.artists.ArtistsFragment"
-        android:label="@string/title_artists"
+        android:label="@string/title_albums"
         tools:layout="@layout/fragment_artists" >
-        <action
-            android:id="@+id/action_navigation_artists_to_navigation_albums"
-            app:destination="@id/navigation_albums"
-            app:enterAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_enter_anim"
-            app:popUpTo="@id/navigation_albums" />
         <action
             android:id="@+id/action_navigation_artists_pop"
             app:enterAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_enter_anim"
             app:popUpTo="@id/navigation_albums"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_navigation_artists_to_artistDetailFragment"
+            app:destination="@id/artistDetailFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_collectionists"
-        android:name="com.mobileapp.mymobileapp.ui.collectionists.CollectionistsFragment"
-        android:label="@string/title_collectionists"
-        tools:layout="@layout/fragment_collectionists" >
+        android:id="@+id/navigation_collectors"
+        android:name="com.mobileapp.mymobileapp.ui.collector.CollectorFragment"
+        tools:layout="@layout/fragment_collector"
+        android:label="@string/title_collectors">
         <action
-            android:id="@+id/action_navigation_collectionists_to_navigation_albums"
-            app:destination="@id/navigation_albums" />
+            android:id="@+id/action_navigation_collectors_to_collectorDetailFragment"
+            app:destination="@id/collectorDetailFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/collectorDetailFragment"
+        android:name="com.mobileapp.mymobileapp.ui.collector.CollectorDetailFragment"
+        tools:layout="@layout/fragment_collector_detail">
+        <action
+            android:id="@+id/action_collectorDetailFragment_to_navigation_collectors"
+            app:destination="@id/navigation_collectors"
+            app:popUpTo="@id/navigation_collectors"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/artistDetailFragment"
+        android:name="com.mobileapp.mymobileapp.ui.artists.ArtistDetailFragment"
+        android:label="@string/title_artists"
+        tools:layout="@layout/fragment_artist_detail" >
+        <action
+            android:id="@+id/action_artistDetailFragment_to_navigation_artists"
+            app:destination="@id/navigation_artists" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/albumDetailFragment"
+        android:name="com.mobileapp.mymobileapp.ui.albums.AlbumDetailFragment"
+        android:label="@string/title_albums"
+        tools:layout="@layout/fragment_album_detail" >
+    </fragment>
+
 </navigation>

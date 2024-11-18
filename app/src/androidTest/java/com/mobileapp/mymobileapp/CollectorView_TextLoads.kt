@@ -25,58 +25,66 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class Artist_TextLoads {
+class CollectorView_TextLoads {
 
     @Rule
     @JvmField
     var mActivityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun artist_TextLoads() {
+    fun collectorView_TextLoads() {
         val bottomNavigationItemView = onView(
             allOf(
-                withId(R.id.navigation_artists), withContentDescription("Artists"),
+                withId(R.id.navigation_collectors), withContentDescription("Collectors"),
                 childAtPosition(
                     childAtPosition(
                         withId(R.id.nav_view),
                         0
                     ),
-                    1
+                    2
                 ),
                 isDisplayed()
             )
         )
         bottomNavigationItemView.perform(click())
 
-        Thread.sleep(3000)
-
         val textView = onView(
             allOf(
-                withId(R.id.textViewArtistName), withText("Rubén Blades Bellido de Luna"),
+                withId(R.id.screenName), withText("Collectors"),
                 withParent(withParent(IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java))),
                 isDisplayed()
             )
         )
-        textView.check(matches(isDisplayed()))
+        textView.check(matches(withText("Collectors")))
 
         val textView2 = onView(
             allOf(
-                withId(R.id.textViewArtistDescription),
-                withText("Es un cantante, compositor, músico, actor, abogado..."),
-                withParent(withParent(IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java))),
+                withText("Collectors"),
+                withParent(
+                    allOf(
+                        withId(com.bumptech.glide.R.id.action_bar),
+                        withParent(withId(com.bumptech.glide.R.id.action_bar_container))
+                    )
+                ),
                 isDisplayed()
             )
         )
-        textView2.check(matches(isDisplayed()))
+        textView2.check(matches(withText("Collectors")))
 
-        val textView3 = onView(
+        val imageView = onView(
             allOf(
-                withId(R.id.textViewArtistBirthDate), withText("1948"),
-                withParent(withParent(IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java))),
+                IsInstanceOf.instanceOf(android.widget.ImageView::class.java),
+                withContentDescription("Search"),
+                withParent(
+                    allOf(
+                        IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java),
+                        withParent(withId(R.id.searchView))
+                    )
+                ),
                 isDisplayed()
             )
         )
-        textView3.check(matches(isDisplayed()))
+        imageView.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(

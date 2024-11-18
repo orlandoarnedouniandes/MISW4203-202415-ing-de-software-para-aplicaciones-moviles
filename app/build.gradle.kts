@@ -36,6 +36,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -45,7 +46,10 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.github.bumptech.glide:glide:4.15.0")
+    implementation(libs.androidx.databinding.runtime)
+    androidTestImplementation(libs.androidx.espresso.contrib)
     kapt("com.github.bumptech.glide:compiler:4.15.0")
+    implementation("com.squareup.picasso:picasso:2.71828")
 
     // Room dependencies
     implementation("androidx.room:room-runtime:2.4.2")
@@ -67,8 +71,11 @@ dependencies {
 
     // Testing libraries
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.6.1")
+    androidTestImplementation("androidx.test.espresso:espresso-intents:3.6.1")
+    androidTestImplementation("androidx.navigation:navigation-testing:2.3.5")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
