@@ -18,7 +18,7 @@
 
     <item
         android:id="@+id/navigation_create_album"
-        android:icon="@drawable/playlist_add_circle_24px"
+        android:icon="@drawable/ic_format_list_bulleted_add_24px"
         android:title="@string/title_create_album" />
 
 
