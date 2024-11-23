@@ -52,11 +52,9 @@ class CreateAlbumFragment : Fragment() {
                 recordLabel = recordLabelInput.text.toString()
             )
 
-            // Llamada al endpoint
             lifecycleScope.launch {
                 val result = api.createAlbum(newAlbum)
                 if (result.isSuccessful) {
-                    //adapter.addAlbum(newAlbum)
                     Toast.makeText(context, "Álbum creado exitosamente", Toast.LENGTH_SHORT).show()
                     findNavController().popBackStack()
                 } else {
