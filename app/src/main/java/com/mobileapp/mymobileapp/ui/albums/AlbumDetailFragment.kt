@@ -69,13 +69,14 @@ class AlbumDetailFragment : Fragment(R.layout.fragment_album_detail) {
 
     companion object {
         fun newInstance(album: Album, holder: AlbumsAdapter.AlbumViewHolder) {
-            // Encuentra el NavController asociado al NavHostFragment
+
             val navController = Navigation.findNavController(holder.itemView)
 
             val bundle = Bundle().apply {
                 putString("name", album.name)
                 putString("cover", album.cover)
-                putString("artist", album.performers.get(0).name)
+                val performerName = album.performers.firstOrNull()?.name ?: "Unknown Performer"
+                putString("artist", performerName)
                 putString("year", DateUtils.extractYear(album.releaseDate.toString()))
                 putString("description", album.description)
                 val gson = Gson()
