@@ -84,6 +84,7 @@ class AlbumsFragment : Fragment(R.layout.fragment_albums) {
 
         val fab: FloatingActionButton = binding.fab
         fab.setOnClickListener {
+
             Toast.makeText(context, "¡Pantalla no implementada!", Toast.LENGTH_SHORT)
                 .show()
         }

@@ -73,6 +73,11 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>() {
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
             oldList[oldItemPosition] == newList[newItemPosition]
     }
+
+     fun addAlbum(album: Album) {
+        albums.add(album)
+        notifyItemInserted(albums.size - 1)
+    }
 }
 
 

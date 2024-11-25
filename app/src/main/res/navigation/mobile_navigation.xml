@@ -64,4 +64,10 @@
         tools:layout="@layout/fragment_album_detail" >
     </fragment>
 
+    <fragment
+        android:id="@+id/navigation_create_album"
+        android:name="com.mobileapp.mymobileapp.ui.albums.CreateAlbumFragment"
+        android:label="@string/title_create_album"
+        tools:layout="@layout/fragment_create_album" />
+
 </navigation>
