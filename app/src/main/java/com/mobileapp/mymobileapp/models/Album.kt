@@ -15,11 +15,11 @@ data class Album(
     val comments: List<Comment>
 )
 
-data class Track(
-    val id: Int,
-    val name: String,
-    val duration: String
-)
+//data class Track(
+//    val id: Int,
+//    val name: String,
+//    val duration: String
+//)
 
 data class Performer(
     val id: Int,
