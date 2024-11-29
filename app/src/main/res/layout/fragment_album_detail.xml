@@ -81,6 +81,15 @@
             android:textSize="26sp"
             android:textStyle="bold" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAddTrack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_gravity="bottom|end"
+            android:contentDescription="@string/add_track"
+            app:srcCompat="@drawable/ic_add" />
+
     </LinearLayout>
     </ScrollView>
 </layout>

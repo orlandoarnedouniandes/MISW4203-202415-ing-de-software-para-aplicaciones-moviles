@@ -14,5 +14,6 @@
     <string name="total_albums">%1$d Albums</string>
     <string name="artist_photo">Artist Photo</string>
     <string name="songs">Canciones</string>
+    <string name="add_track">Adicionar</string>
     <string name="title_create_album">Nuevo Album</string>
 </resources>

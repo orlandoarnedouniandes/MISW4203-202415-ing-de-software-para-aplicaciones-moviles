@@ -9,9 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
 import com.mobileapp.mymobileapp.R
 import com.mobileapp.mymobileapp.models.Album
@@ -26,7 +28,19 @@ class AlbumDetailFragment : Fragment(R.layout.fragment_album_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //binding = FragmentArtistDetailBinding.bind(view)
+
+        val fabAddTrack: FloatingActionButton = view.findViewById(R.id.fabAddTrack)
+        fabAddTrack.setOnClickListener {
+            navigateToAddTrackFragment()
+        }
+    }
+
+    private fun navigateToAddTrackFragment() {
+        val albumId = arguments?.getString("albumId") ?: return
+
+        // Pass albumId as an argument to the AddTrackToAlbumFragment
+        val action = AlbumDetailFragmentDirections.actionAlbumDetailFragmentToAddTrackToAlbumFragment(albumId)
+        view?.findNavController()?.navigate(action)
     }
 
     override fun onCreateView(

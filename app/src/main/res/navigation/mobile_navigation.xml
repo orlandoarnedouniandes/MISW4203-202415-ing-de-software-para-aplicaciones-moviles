@@ -62,6 +62,11 @@
         android:name="com.mobileapp.mymobileapp.ui.albums.AlbumDetailFragment"
         android:label="@string/title_albums"
         tools:layout="@layout/fragment_album_detail" >
+
+        <action
+            android:id="@+id/action_albumDetailFragment_to_addTrackToAlbumFragment"
+            app:destination="@id/addTrackToAlbumFragment" />
+
     </fragment>
 
     <fragment
@@ -69,5 +74,14 @@
         android:name="com.mobileapp.mymobileapp.ui.albums.CreateAlbumFragment"
         android:label="@string/title_create_album"
         tools:layout="@layout/fragment_create_album" />
+
+    <fragment
+        android:id="@+id/addTrackToAlbumFragment"
+        android:name="com.mobileapp.mymobileapp.ui.albums.AddTrackToAlbumFragment"
+        android:label="Add Track">
+        <argument
+            android:name="albumId"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
