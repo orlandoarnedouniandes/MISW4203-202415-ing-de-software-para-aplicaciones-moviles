@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -32,7 +33,11 @@ class AlbumDetailFragment : Fragment(R.layout.fragment_album_detail) {
 
     private fun navigateToAddTrackFragment(albumId: String) {
 
-        // Pass albumId as an argument to the AddTrackToAlbumFragment
+        if (albumId.isNullOrEmpty()) {
+            Toast.makeText(context, "Album ID not found", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val action = AlbumDetailFragmentDirections.actionAlbumDetailFragmentToAddTrackToAlbumFragment(albumId)
         view?.findNavController()?.navigate(action)
     }

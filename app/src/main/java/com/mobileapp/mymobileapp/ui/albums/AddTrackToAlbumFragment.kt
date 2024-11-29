@@ -1,6 +1,7 @@
 package com.mobileapp.mymobileapp.ui.albums
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,12 @@ class AddTrackToAlbumFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val albumId = arguments?.getString("albumId")
+        Log.d("AddTrackToAlbumFragment", "Received Album ID: $albumId")
+        if (albumId == null) {
+            Toast.makeText(context, "Album ID not found", Toast.LENGTH_SHORT).show()
+        }
+
         val api = RetrofitClient.instance.create(AlbumsApi::class.java)
 
         nameInput = view.findViewById(R.id.nameInput)
@@ -39,7 +46,7 @@ class AddTrackToAlbumFragment : Fragment() {
         saveButton = view.findViewById(R.id.saveButton)
 
         saveButton.setOnClickListener {
-            val albumId = arguments?.getString("ALBUM_ID") ?: run {
+            albumId ?: run {
                 Toast.makeText(context, "Album ID not found", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
