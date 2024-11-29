@@ -15,4 +15,6 @@
     <string name="artist_photo">Artist Photo</string>
     <string name="songs">Canciones</string>
     <string name="title_create_album">Nuevo Album</string>
+    <string name="performer_image">Performer Image</string>
+    <string name="album_image">Album Image</string>
 </resources>
