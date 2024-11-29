@@ -63,8 +63,12 @@
         android:label="@string/title_albums"
         tools:layout="@layout/fragment_album_detail" >
 
+        <argument
+            android:name="albumId"
+            app:argType="string" />
+
         <action
-            android:id="@+id/action_albumDetailFragment_to_addTrackToAlbumFragment"
+            android:id="@+id/actionAlbumDetailFragmentToAddTrackToAlbumFragment"
             app:destination="@id/addTrackToAlbumFragment" />
 
     </fragment>

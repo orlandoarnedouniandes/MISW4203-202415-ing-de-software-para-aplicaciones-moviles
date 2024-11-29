@@ -28,15 +28,9 @@ class AlbumDetailFragment : Fragment(R.layout.fragment_album_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val fabAddTrack: FloatingActionButton = view.findViewById(R.id.fabAddTrack)
-        fabAddTrack.setOnClickListener {
-            navigateToAddTrackFragment()
-        }
     }
 
-    private fun navigateToAddTrackFragment() {
-        val albumId = arguments?.getString("albumId") ?: return
+    private fun navigateToAddTrackFragment(albumId: String) {
 
         // Pass albumId as an argument to the AddTrackToAlbumFragment
         val action = AlbumDetailFragmentDirections.actionAlbumDetailFragmentToAddTrackToAlbumFragment(albumId)
@@ -51,6 +45,7 @@ class AlbumDetailFragment : Fragment(R.layout.fragment_album_detail) {
         val view = inflater.inflate(R.layout.fragment_album_detail, container, false)
         Log.e("","Paso - carga info")
         // Retrieve data passed through arguments
+        val albumId = arguments?.getString("id")
         val albumName = arguments?.getString("name")
         val albumCover = arguments?.getString("cover")
         val albumArtist = arguments?.getString("artist")
@@ -76,6 +71,11 @@ class AlbumDetailFragment : Fragment(R.layout.fragment_album_detail) {
             val tracks : List<Track> = gson.fromJson(canciones, Array<Track>::class.java).toList()
             //Log.d("AlbumDetailFragment", "Name: ${tracks.name}, Artist: ${tracks.duration}")
             recyclerView.adapter = TracksAdapter(tracks)
+        }
+
+        val fabAddTrack: FloatingActionButton = view.findViewById(R.id.fabAddTrack)
+        fabAddTrack.setOnClickListener {
+            navigateToAddTrackFragment(albumId.toString())
         }
 
         return view
