@@ -3,8 +3,10 @@ package com.mobileapp.mymobileapp.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.mobileapp.mymobileapp.databinding.ItemCollectorPerformerBinding
 import com.mobileapp.mymobileapp.models.Performer
+import com.mobileapp.mymobileapp.util.DateUtils
 
 class CollectorPerformersAdapter(private val performers: List<Performer>) : RecyclerView.Adapter<CollectorPerformersAdapter.PerformerViewHolder>() {
 
@@ -22,7 +24,9 @@ class CollectorPerformersAdapter(private val performers: List<Performer>) : Recy
     class PerformerViewHolder(private val binding: ItemCollectorPerformerBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(performer: Performer) {
             binding.textViewPerformerName.text = performer.name
-            //  TODO: Complete HU06
+            binding.textViewPerformerDescription.text = performer.description
+            Glide.with(binding.root.context).load(performer.image).into(binding.imageViewPerformer)
+            binding.textViewPerformerBirthDate.text = DateUtils.extractYear(performer.birthDate ?: performer.creationDate ?: "")
         }
     }
 }
