@@ -1,6 +1,8 @@
 package com.mobileapp.mymobileapp.ui.albums
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -44,6 +46,46 @@ class AddTrackToAlbumFragment : Fragment() {
         nameInput = view.findViewById(R.id.nameInput)
         durationInput = view.findViewById(R.id.durationInput)
         saveButton = view.findViewById(R.id.saveButton)
+
+        durationInput.addTextChangedListener(object : TextWatcher {
+            private var isEditing = false
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                if (isEditing) return
+
+                isEditing = true
+
+                val input = s.toString().replace("[^0-9]".toRegex(), "")
+                val formatted = when {
+                    input.length > 4 -> input.substring(0, 2) + ":" + input.substring(2, 4)
+                    input.length > 2 -> input.substring(0, 2) + ":" + input.substring(2)
+                    else -> input
+                }
+
+                durationInput.setText(formatted)
+                durationInput.setSelection(formatted.length)
+
+
+                if (formatted.contains(":")) {
+                    val parts = formatted.split(":")
+                    if (parts.size == 2) {
+                        val seconds = parts[1].toIntOrNull()
+                        if (seconds != null && seconds > 59) {
+                            Toast.makeText(context, "Duracion invalida: los segundos deben ser menor de 60", Toast.LENGTH_SHORT).show()
+                            durationInput.error = "Los segundos deben ser menor de 60"
+                        } else {
+                            durationInput.error = null
+                        }
+                    }
+                }
+
+                isEditing = false
+            }
+        })
 
         saveButton.setOnClickListener {
             albumId ?: run {
