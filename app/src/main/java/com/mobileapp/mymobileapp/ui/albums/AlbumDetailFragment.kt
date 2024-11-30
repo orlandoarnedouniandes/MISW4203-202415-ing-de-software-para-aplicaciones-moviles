@@ -50,7 +50,7 @@ class AlbumDetailFragment : Fragment(R.layout.fragment_album_detail) {
         val view = inflater.inflate(R.layout.fragment_album_detail, container, false)
         Log.e("","Paso - carga info")
         // Retrieve data passed through arguments
-        val albumId = arguments?.getString("id")
+        val albumId = arguments?.getString("albumId")
         val albumName = arguments?.getString("name")
         val albumCover = arguments?.getString("cover")
         val albumArtist = arguments?.getString("artist")
@@ -92,6 +92,7 @@ class AlbumDetailFragment : Fragment(R.layout.fragment_album_detail) {
             val navController = Navigation.findNavController(holder.itemView)
 
             val bundle = Bundle().apply {
+                putString("albumId", album.id.toString())
                 putString("name", album.name)
                 putString("cover", album.cover)
                 val performerName = album.performers.firstOrNull()?.name ?: "Unknown Performer"
