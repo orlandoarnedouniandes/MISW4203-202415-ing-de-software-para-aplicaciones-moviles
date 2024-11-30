@@ -14,6 +14,11 @@
     <string name="total_albums">%1$d Albums</string>
     <string name="artist_photo">Artist Photo</string>
     <string name="songs">Canciones</string>
+    <string name="add_track">Adicionar</string>
+    <string name="add_track_name">Nombre de la cancion</string>
+    <string name="add_track_duration">Duration (e.g., 3:45)</string>
+    <string name="add_track_save">Guardar</string>
+    <string name="add_track_title">Adicionar cancion</string>
     <string name="title_create_album">Nuevo Album</string>
     <string name="performer_image">Performer Image</string>
     <string name="album_image">Album Image</string>
