@@ -59,7 +59,8 @@ class AddTrackToAlbumFragment : Fragment() {
                 val result = api.addTrackToAlbum(albumId, track)
                 if (result.isSuccessful) {
                     Toast.makeText(context, "Track added successfully", Toast.LENGTH_SHORT).show()
-                    findNavController().popBackStack()
+                    val action = AddTrackToAlbumFragmentDirections.actionAddTrackToAlbumFragmentToAlbumsFragment()
+                    findNavController().navigate(action)
                 } else {
                     Toast.makeText(context, "Failed to add track", Toast.LENGTH_LONG).show()
                 }

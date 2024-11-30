@@ -86,6 +86,9 @@
         <argument
             android:name="albumId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_addTrackToAlbumFragment_to_albumsFragment"
+            app:destination="@id/navigation_albums" />
     </fragment>
 
 </navigation>
