@@ -47,7 +47,7 @@ class AddTrackToAlbumFragment : Fragment() {
 
         saveButton.setOnClickListener {
             albumId ?: run {
-                Toast.makeText(context, "Album ID not found", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Album ID no encontrado", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             val track = Track(
@@ -58,11 +58,11 @@ class AddTrackToAlbumFragment : Fragment() {
             lifecycleScope.launch {
                 val result = api.addTrackToAlbum(albumId, track)
                 if (result.isSuccessful) {
-                    Toast.makeText(context, "Track added successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Cancion adicionada con exito", Toast.LENGTH_SHORT).show()
                     val action = AddTrackToAlbumFragmentDirections.actionAddTrackToAlbumFragmentToAlbumsFragment()
                     findNavController().navigate(action)
                 } else {
-                    Toast.makeText(context, "Failed to add track", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "La adicion ha fallado", Toast.LENGTH_LONG).show()
                 }
             }
         }

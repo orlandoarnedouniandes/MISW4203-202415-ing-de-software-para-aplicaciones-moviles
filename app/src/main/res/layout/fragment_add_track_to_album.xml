@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Track Name"
+            android:text="@string/add_track_name"
             android:textColor="@android:color/white"
             android:layout_marginBottom="8dp" />
 
@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Duration (e.g., 3:45)"
+            android:text="@string/add_track_duration"
             android:textColor="@android:color/white"
             android:layout_marginBottom="8dp" />
 
@@ -47,7 +47,7 @@
             android:id="@+id/saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save"
+            android:text="@string/add_track_save"
             app:cornerRadius="8dp"
             app:backgroundTint="@color/button_color"
             android:layout_gravity="center" />
