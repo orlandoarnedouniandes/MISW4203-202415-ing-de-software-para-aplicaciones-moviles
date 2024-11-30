@@ -50,18 +50,21 @@ data class Collector(
 data class CollectorAlbum(
     val id: Int,
     val price: Int,
-    val status: String
+    val status: String,
+    val album: Album
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readInt(),
-        parcel.readString() ?: ""
+        parcel.readString() ?: "",
+        parcel.readParcelable(Album::class.java.classLoader)!!
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
         parcel.writeInt(price)
         parcel.writeString(status)
+        parcel.writeParcelable(album, flags)
     }
 
     override fun describeContents(): Int {

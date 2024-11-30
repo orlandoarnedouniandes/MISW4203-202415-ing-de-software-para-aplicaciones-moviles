@@ -13,36 +13,26 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- Collector Name Section -->
             <TextView
                 android:id="@+id/textViewCollectorName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Collector Name"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textViewCollectorEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Collector Email"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/textViewCollectorTelephone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Collector Telephone"
-                android:textSize="16sp" />
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="8dp" />
 
             <!-- Favorite Performers Section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Favorite Performers"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:textStyle="bold"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewFavoritePerformers"
@@ -55,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Collector Albums"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp" />
 
@@ -64,22 +54,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp" />
-
-            <!-- Comments Section -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Comments"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewComments"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp" />
-
         </LinearLayout>
     </ScrollView>
 </layout>

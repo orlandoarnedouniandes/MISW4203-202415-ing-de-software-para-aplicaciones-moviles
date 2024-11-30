@@ -1,5 +1,6 @@
 package com.mobileapp.mymobileapp.models
 
+import android.os.Parcel
 import android.os.Parcelable
 
 data class Album(
@@ -10,29 +11,103 @@ data class Album(
     val description: String,
     val genre: String,
     val recordLabel: String,
-    val tracks: List<Track>,
-    val performers: List<Performer>,
+    var tracks: List<Track>,
+    var performers: List<Performer>,
     val comments: List<Comment>
-)
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        mutableListOf<Track>().apply {
+            parcel.readList(this, Track::class.java.classLoader)
+        },
+        mutableListOf<Performer>().apply {
+            parcel.readList(this, Performer::class.java.classLoader)
+        },
+        mutableListOf<Comment>().apply {
+            parcel.readList(this, Comment::class.java.classLoader)
+        }
+    )
 
-//data class Track(
-//    val id: Int,
-//    val name: String,
-//    val duration: String
-//)
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
+        parcel.writeString(name)
+        parcel.writeString(cover)
+        parcel.writeString(releaseDate)
+        parcel.writeString(description)
+        parcel.writeString(genre)
+        parcel.writeString(recordLabel)
+        parcel.writeList(tracks)
+        parcel.writeList(performers)
+        parcel.writeList(comments)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Album> {
+        override fun createFromParcel(parcel: Parcel): Album {
+            return Album(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Album?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
+
+data class Track(
+    val id: Int,
+    val name: String,
+    val duration: String
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readString() ?: "",
+        parcel.readString() ?: ""
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
+        parcel.writeString(name)
+        parcel.writeString(duration)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Track> {
+        override fun createFromParcel(parcel: Parcel): Track {
+            return Track(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Track?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
 
 data class Performer(
     val id: Int,
     val name: String,
     val image: String,
     val description: String,
-    val birthDate: String?
+    val birthDate: String?,
+    val creationDate: String?
 ): Parcelable {
-    constructor(parcel: android.os.Parcel) : this(
+    constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
+        parcel.readString(),
         parcel.readString()
     )
 
@@ -64,7 +139,7 @@ data class Comment(
     val description: String,
     val rating: Int
 ): Parcelable {
-    constructor(parcel: android.os.Parcel) : this(
+    constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString() ?: "",
         parcel.readInt()
