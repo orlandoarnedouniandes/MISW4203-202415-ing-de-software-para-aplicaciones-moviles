@@ -71,15 +71,6 @@
             android:layout_marginTop="2dp"
             tools:listitem="@layout/item_cancion_album" />
 
-        <TextView
-            android:id="@+id/Space"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:gravity="left"
-            android:text="   "
-            android:textSize="26sp"
-            android:textStyle="bold" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabAddTrack"
