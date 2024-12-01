@@ -28,6 +28,7 @@
                 android:text="@string/title_artists"
                 android:textSize="30sp"
                 android:layout_gravity="center_vertical"
+                android:contentDescription="Main screen title: Artists"
                 android:paddingEnd="16dp" />
 
             <SearchView

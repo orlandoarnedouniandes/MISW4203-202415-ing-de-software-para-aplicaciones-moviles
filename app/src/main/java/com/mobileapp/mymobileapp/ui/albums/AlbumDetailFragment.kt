@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
 import com.mobileapp.mymobileapp.R
 import com.mobileapp.mymobileapp.models.Album
@@ -26,7 +29,17 @@ class AlbumDetailFragment : Fragment(R.layout.fragment_album_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //binding = FragmentArtistDetailBinding.bind(view)
+    }
+
+    private fun navigateToAddTrackFragment(albumId: String) {
+
+        if (albumId.isNullOrEmpty()) {
+            Toast.makeText(context, "Album ID not found", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val action = AlbumDetailFragmentDirections.actionAlbumDetailFragmentToAddTrackToAlbumFragment(albumId)
+        view?.findNavController()?.navigate(action)
     }
 
     override fun onCreateView(
@@ -37,6 +50,7 @@ class AlbumDetailFragment : Fragment(R.layout.fragment_album_detail) {
         val view = inflater.inflate(R.layout.fragment_album_detail, container, false)
         Log.e("","Paso - carga info")
         // Retrieve data passed through arguments
+        val albumId = arguments?.getString("albumId")
         val albumName = arguments?.getString("name")
         val albumCover = arguments?.getString("cover")
         val albumArtist = arguments?.getString("artist")
@@ -64,18 +78,25 @@ class AlbumDetailFragment : Fragment(R.layout.fragment_album_detail) {
             recyclerView.adapter = TracksAdapter(tracks)
         }
 
+        val fabAddTrack: FloatingActionButton = view.findViewById(R.id.fabAddTrack)
+        fabAddTrack.setOnClickListener {
+            navigateToAddTrackFragment(albumId.toString())
+        }
+
         return view
     }
 
     companion object {
         fun newInstance(album: Album, holder: AlbumsAdapter.AlbumViewHolder) {
-            // Encuentra el NavController asociado al NavHostFragment
+
             val navController = Navigation.findNavController(holder.itemView)
 
             val bundle = Bundle().apply {
+                putString("albumId", album.id.toString())
                 putString("name", album.name)
                 putString("cover", album.cover)
-                putString("artist", album.performers.get(0).name)
+                val performerName = album.performers.firstOrNull()?.name ?: "Unknown Performer"
+                putString("artist", performerName)
                 putString("year", DateUtils.extractYear(album.releaseDate.toString()))
                 putString("description", album.description)
                 val gson = Gson()

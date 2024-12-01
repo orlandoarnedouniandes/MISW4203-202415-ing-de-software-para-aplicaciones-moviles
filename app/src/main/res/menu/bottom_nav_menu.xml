@@ -4,7 +4,7 @@
     <item
         android:id="@+id/navigation_albums"
         android:icon="@drawable/ic_library_music_24px"
-        android:title="@string/title_albums" />
+        android:title="@string/button_albums" />
 
     <item
         android:id="@+id/navigation_artists"
@@ -15,6 +15,11 @@
         android:id="@+id/navigation_collectors"
         android:icon="@drawable/ic_playlist_add_circle_24px"
         android:title="@string/title_collectors" />
+
+    <item
+        android:id="@+id/navigation_create_album"
+        android:icon="@drawable/ic_format_list_bulleted_add_24px"
+        android:title="@string/title_create_album" />
 
 
 </menu>

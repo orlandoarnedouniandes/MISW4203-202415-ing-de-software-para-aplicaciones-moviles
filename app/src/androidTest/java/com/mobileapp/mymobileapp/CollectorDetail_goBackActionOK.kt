@@ -3,13 +3,14 @@ package com.mobileapp.mymobileapp
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
-import androidx.test.espresso.action.ViewActions.replaceText
-import androidx.test.espresso.action.ViewActions.scrollTo
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withClassName
+import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -21,42 +22,75 @@ import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.TypeSafeMatcher
+import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class AlbumsBusqueda {
+class CollectorDetail_goBackActionOK {
 
     @Rule
     @JvmField
     var mActivityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun albumsBusqueda() {
-        val appCompatEditText = onView(
+    fun collectorDetail_goBackActionOK() {
+        val bottomNavigationItemView = onView(
             allOf(
-                withId(R.id.editTextText),
+                withId(R.id.navigation_collectors), withContentDescription("Collectors"),
                 childAtPosition(
                     childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
+                        withId(R.id.nav_view),
                         0
                     ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        bottomNavigationItemView.perform(click())
+        Thread.sleep(2000)
+
+        val recyclerView = onView(
+            allOf(
+                withId(R.id.recyclerViewCollectors),
+                childAtPosition(
+                    withClassName(`is`("android.widget.LinearLayout")),
                     1
                 )
             )
         )
-        appCompatEditText.perform(scrollTo(), replaceText("races"), closeSoftKeyboard())
+        recyclerView.perform(actionOnItemAtPosition<ViewHolder>(0, click()))
 
-        val textView = onView(
+        val appCompatImageButton = onView(
             allOf(
-                withId(R.id.textViewAlbumName), withText("A Day at the Races"),
-                withParent(withParent(withId(R.id.recyclerView))),
+                withContentDescription("Navigate up"),
+                childAtPosition(
+                    allOf(
+                        withId(com.bumptech.glide.R.id.action_bar),
+                        childAtPosition(
+                            withId(com.bumptech.glide.R.id.action_bar_container),
+                            0
+                        )
+                    ),
+                    2
+                ),
                 isDisplayed()
             )
         )
-        textView.check(matches(withText("A Day at the Races")))
+        appCompatImageButton.perform(click())
+        Thread.sleep(2000)
+
+        val textView = onView(
+            allOf(
+                withId(R.id.screenName), withText("Collectors"),
+                withParent(withParent(IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java))),
+                isDisplayed()
+            )
+        )
+        textView.check(matches(withText("Collectors")))
     }
 
     private fun childAtPosition(

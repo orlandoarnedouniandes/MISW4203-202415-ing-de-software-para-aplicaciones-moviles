@@ -3,10 +3,13 @@ package com.mobileapp.mymobileapp
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withClassName
 import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withParent
@@ -17,76 +20,77 @@ import androidx.test.filters.LargeTest
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
+import org.hamcrest.Matchers.`is`
 import org.hamcrest.TypeSafeMatcher
+import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class Artist_NavigationGoAndBack {
+class CollectorDetail_TitleLoadsOk {
 
     @Rule
     @JvmField
     var mActivityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun artist_NavigationGoAndBack() {
+    fun collectorDetail_TitleLoadsOk() {
         val bottomNavigationItemView = onView(
             allOf(
-                withId(R.id.navigation_artists), withContentDescription("Artists"),
+                withId(R.id.navigation_collectors), withContentDescription("Collectors"),
                 childAtPosition(
                     childAtPosition(
                         withId(R.id.nav_view),
                         0
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        bottomNavigationItemView.perform(click())
-
-        Thread.sleep(3000)
-
-        val textView = onView(
-            allOf(
-                withId(R.id.screenName), withText("Artists"),
-                withParent(withParent(withId(R.id.fragment_artist))),
-                isDisplayed()
-            )
-        )
-        textView.check(matches(withText("Artists")))
-
-        val appCompatImageButton = onView(
-            allOf(
-                withContentDescription("Navigate up"),
-                childAtPosition(
-                    allOf(
-                        withId(com.bumptech.glide.R.id.action_bar),
-                        childAtPosition(
-                            withId(com.bumptech.glide.R.id.action_bar_container),
-                            0
-                        )
                     ),
                     2
                 ),
                 isDisplayed()
             )
         )
-        appCompatImageButton.perform(click())
+        bottomNavigationItemView.perform(click())
+        Thread.sleep(2000)
 
-        Thread.sleep(3000)
-
-        val textView2 = onView(
+        val recyclerView = onView(
             allOf(
-                withId(R.id.text_albums), withText("Albums"),
-                withParent(withParent(withId(R.id.nav_host_fragment_activity_main))),
+                withId(R.id.recyclerViewCollectors),
+                childAtPosition(
+                    withClassName(`is`("android.widget.LinearLayout")),
+                    1
+                )
+            )
+        )
+        recyclerView.perform(actionOnItemAtPosition<ViewHolder>(0, click()))
+        Thread.sleep(2000)
+
+        val textView = onView(
+            allOf(
+                withId(R.id.textViewCollectorName), withText("Manolo Bellon"),
+                withParent(withParent(IsInstanceOf.instanceOf(android.widget.ScrollView::class.java))),
                 isDisplayed()
             )
         )
-        textView2.check(matches(withText("Albums")))
+        textView.check(matches(isDisplayed()))
 
+        val textView2 = onView(
+            allOf(
+                withText("Favorite Performers"),
+                withParent(withParent(IsInstanceOf.instanceOf(android.widget.ScrollView::class.java))),
+                isDisplayed()
+            )
+        )
+        textView2.check(matches(isDisplayed()))
+
+        val textView3 = onView(
+            allOf(
+                withText("Collector Albums"),
+                withParent(withParent(IsInstanceOf.instanceOf(android.widget.ScrollView::class.java))),
+                isDisplayed()
+            )
+        )
+        textView3.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(

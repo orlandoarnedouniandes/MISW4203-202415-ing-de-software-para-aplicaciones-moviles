@@ -3,7 +3,11 @@
     <string name="title_home">Vinilos</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="title_albums">Albums</string>
+    <string name="title_albums">Albums Module</string>
+    <string name="title_albums_text">Albums Title</string>
+    <string name="button_albums">Albums</string>
+    <string name="title_albums_detail">Albums Detail Module</string>
+    <string name="title_albums_intern">Albums</string>
     <string name="album_cover">Album Cover</string>
     <string name="title_artists">Artists</string>
     <string name="artist_image">Image</string>
@@ -14,4 +18,24 @@
     <string name="total_albums">%1$d Albums</string>
     <string name="artist_photo">Artist Photo</string>
     <string name="songs">Canciones</string>
+    <string name="add_track">Adicionar</string>
+    <string name="add_track_name">Nombre de la cancion</string>
+    <string name="add_track_duration">Duration (e.g., 3:45)</string>
+    <string name="add_track_save">Guardar</string>
+    <string name="add_track_title">Adicionar cancion</string>
+    <string name="title_create_album">Nuevo Album</string>
+    <string name="title_create_album_description">Crear un nuevo album</string>
+    <string name="performer_image">Performer Image</string>
+    <string name="album_image">Album Image</string>
+    <string name="enter_song_name">Enter song name</string>
+    <string name="enter_song_duration">Enter song duration</string>
+    <string name="enter_album_name">Enter album name</string>
+    <string name="enter_cover_path">Enter cover path</string>
+    <string name="enter_date">Enter date</string>
+    <string name="enter_description">Enter description</string>
+    <string name="enter_genre">Enter genre</string>
+    <string name="enter_record_label">Enter record label</string>
+    <string name="title_artist_description">Lista de artistas</string>
+    <string name="title_artists_detail_description">Detalle del artista</string>
+    <string name="title_collectors_description">Lista de coleccionistas</string>
 </resources>

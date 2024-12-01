@@ -5,10 +5,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mobileapp.mymobileapp.R
@@ -82,10 +82,10 @@ class AlbumsFragment : Fragment(R.layout.fragment_albums) {
             }
         })
 
-        val fab: FloatingActionButton = binding.fab
+        val fab = view.findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
-            Toast.makeText(context, "¡Pantalla no implementada!", Toast.LENGTH_SHORT)
-                .show()
+            // Navigate to CreateAlbumFragment
+            it.findNavController().navigate(R.id.navigation_create_album)
         }
 
     }

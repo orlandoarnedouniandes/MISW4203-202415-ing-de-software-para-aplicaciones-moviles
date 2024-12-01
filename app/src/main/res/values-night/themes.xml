@@ -21,4 +21,8 @@
         <!-- Status bar color -->
         <item name="android:statusBarColor">@color/background_color</item>
     </style>
+    <style name="CustomBottomNavigationStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemIconSize">38sp</item> <!-- Adjust the size as needed -->
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>

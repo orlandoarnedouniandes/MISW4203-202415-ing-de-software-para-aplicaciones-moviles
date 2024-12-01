@@ -4,6 +4,7 @@ import android.util.Log
 import com.mobileapp.mymobileapp.data.dao.AlbumDao
 import com.mobileapp.mymobileapp.models.Album
 import com.mobileapp.mymobileapp.models.AlbumEntity
+import com.mobileapp.mymobileapp.models.CreateAlbum
 import com.mobileapp.mymobileapp.network.AlbumsApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -74,4 +75,19 @@ class AlbumRepository(private val api: AlbumsApi, private val albumDao: AlbumDao
         // For simplicity, we always fetch from the network but we can add more logic here
         return true
     }
+
+    suspend fun createAlbum(createAlbum: CreateAlbum): Result<CreateAlbum> {
+        return try {
+            val response = api.createAlbum(createAlbum)
+            if (response.isSuccessful) {
+                Result.success(response.body()!!)
+            } else {
+                Result.failure(Exception("Error creating album: ${response.errorBody()?.string()}"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    
 }

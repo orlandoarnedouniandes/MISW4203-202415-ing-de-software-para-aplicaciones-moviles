@@ -1,0 +1,57 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_track_name"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/nameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_input_background"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:inputType="textCapWords"
+            android:hint="@string/enter_song_name"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_track_duration"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/durationInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_input_background"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:hint="@string/enter_song_duration"
+            android:inputType="text"
+            android:layout_marginBottom="16dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_track_save"
+            app:cornerRadius="8dp"
+            app:backgroundTint="@color/button_color"
+            android:layout_gravity="center" />
+    </LinearLayout>
+</ScrollView>
