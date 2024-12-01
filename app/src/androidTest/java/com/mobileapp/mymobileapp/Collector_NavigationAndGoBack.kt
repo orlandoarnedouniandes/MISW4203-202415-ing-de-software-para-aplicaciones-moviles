@@ -26,6 +26,7 @@ import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.concurrent.thread
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -50,6 +51,7 @@ class Collector_NavigationAndGoBack {
                 isDisplayed()
             )
         )
+        Thread.sleep(2000)
         bottomNavigationItemView.perform(click())
 
         val recyclerView = onView(
@@ -61,11 +63,12 @@ class Collector_NavigationAndGoBack {
                 )
             )
         )
+        Thread.sleep(2000)
         recyclerView.perform(actionOnItemAtPosition<ViewHolder>(0, click()))
 
         val textView = onView(
             allOf(
-                withText("Collectors"),
+                withText("Lista de coleccionistas"),
                 withParent(
                     allOf(
                         withId(com.bumptech.glide.R.id.action_bar),
@@ -75,7 +78,8 @@ class Collector_NavigationAndGoBack {
                 isDisplayed()
             )
         )
-        textView.check(matches(withText("Collectors")))
+        Thread.sleep(2000)
+        textView.check(matches(withText("Lista de coleccionistas")))
 
         val textView2 = onView(
             allOf(
@@ -133,7 +137,7 @@ class Collector_NavigationAndGoBack {
 
         val textView6 = onView(
             allOf(
-                withText("Collectors"),
+                withText("Lista de coleccionistas"),
                 withParent(
                     allOf(
                         withId(com.bumptech.glide.R.id.action_bar),
@@ -143,7 +147,8 @@ class Collector_NavigationAndGoBack {
                 isDisplayed()
             )
         )
-        textView6.check(matches(withText("Collectors")))
+        Thread.sleep(2000)
+        textView6.check(matches(withText("Lista de coleccionistas")))
 
         val textView7 = onView(
             allOf(

@@ -27,6 +27,7 @@
             android:padding="12dp"
             android:textColor="@android:color/black"
             android:inputType="textCapSentences"
+            android:hint="@string/enter_album_name"
             android:layout_marginBottom="16dp"/>
 
         <TextView
@@ -44,6 +45,7 @@
             android:padding="12dp"
             android:textColor="@android:color/black"
             android:inputType="textUri"
+            android:hint="@string/enter_cover_path"
             android:layout_marginBottom="16dp"/>
 
         <TextView
@@ -61,6 +63,7 @@
             android:padding="12dp"
             android:textColor="@android:color/black"
             android:inputType="date"
+            android:hint="@string/enter_date"
             android:layout_marginBottom="16dp"/>
 
         <TextView
@@ -80,6 +83,7 @@
             android:inputType="textCapSentences|textMultiLine"
             android:minLines="3"
             android:gravity="top|start"
+            android:hint="@string/enter_description"
             android:layout_marginBottom="16dp"/>
 
         <TextView
@@ -97,6 +101,7 @@
             android:padding="12dp"
             android:textColor="@android:color/black"
             android:inputType="textCapWords"
+            android:hint="@string/enter_genre"
             android:layout_marginBottom="16dp"/>
 
         <TextView
@@ -114,6 +119,7 @@
             android:padding="12dp"
             android:textColor="@android:color/black"
             android:inputType="textCapWords"
+            android:hint="@string/enter_record_label"
             android:layout_marginBottom="24dp"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout

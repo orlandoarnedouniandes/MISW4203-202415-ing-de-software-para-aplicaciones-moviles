@@ -59,11 +59,12 @@ class Artist_NavigationAndGoBAck {
                 )
             )
         )
+        Thread.sleep(2000)
         recyclerView.perform(actionOnItemAtPosition<ViewHolder>(0, click()))
 
         val textView = onView(
             allOf(
-                withText("Artists"),
+                withText("Detalle del artista"),
                 withParent(
                     allOf(
                         withId(com.bumptech.glide.R.id.action_bar),
@@ -73,7 +74,7 @@ class Artist_NavigationAndGoBAck {
                 isDisplayed()
             )
         )
-        textView.check(matches(withText("Artists")))
+        textView.check(matches(withText("Detalle del artista")))
 
         val textView2 = onView(
             allOf(

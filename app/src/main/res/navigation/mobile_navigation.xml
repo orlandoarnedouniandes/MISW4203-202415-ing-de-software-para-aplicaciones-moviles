@@ -9,12 +9,15 @@
         android:id="@+id/navigation_albums"
         android:name="com.mobileapp.mymobileapp.ui.albums.AlbumsFragment"
         android:label="@string/title_albums"
-        tools:layout="@layout/fragment_albums" />
+        tools:layout="@layout/fragment_albums"
+        android:contentDescription="Main screen title: Albums"
+        android:textSize="16sp"/>
 
     <fragment
         android:id="@+id/navigation_artists"
         android:name="com.mobileapp.mymobileapp.ui.artists.ArtistsFragment"
-        android:label="@string/title_albums"
+        android:label="@string/title_artist_description"
+        android:textSize="16sp"
         tools:layout="@layout/fragment_artists" >
         <action
             android:id="@+id/action_navigation_artists_pop"
@@ -30,8 +33,9 @@
     <fragment
         android:id="@+id/navigation_collectors"
         android:name="com.mobileapp.mymobileapp.ui.collector.CollectorFragment"
+        android:textSize="16sp"
         tools:layout="@layout/fragment_collector"
-        android:label="@string/title_collectors">
+        android:label="@string/title_collectors_description">
         <action
             android:id="@+id/action_navigation_collectors_to_collectorDetailFragment"
             app:destination="@id/collectorDetailFragment" />
@@ -40,6 +44,7 @@
     <fragment
         android:id="@+id/collectorDetailFragment"
         android:name="com.mobileapp.mymobileapp.ui.collector.CollectorDetailFragment"
+        android:textSize="16sp"
         tools:layout="@layout/fragment_collector_detail">
         <action
             android:id="@+id/action_collectorDetailFragment_to_navigation_collectors"
@@ -50,7 +55,8 @@
     <fragment
         android:id="@+id/artistDetailFragment"
         android:name="com.mobileapp.mymobileapp.ui.artists.ArtistDetailFragment"
-        android:label="@string/title_artists"
+        android:label="@string/title_artists_detail_description"
+        android:textSize="16sp"
         tools:layout="@layout/fragment_artist_detail" >
         <action
             android:id="@+id/action_artistDetailFragment_to_navigation_artists"
@@ -60,7 +66,8 @@
     <fragment
         android:id="@+id/albumDetailFragment"
         android:name="com.mobileapp.mymobileapp.ui.albums.AlbumDetailFragment"
-        android:label="@string/title_albums"
+        android:label="@string/title_albums_detail"
+        android:textSize="16sp"
         tools:layout="@layout/fragment_album_detail" >
 
         <argument
@@ -76,12 +83,15 @@
     <fragment
         android:id="@+id/navigation_create_album"
         android:name="com.mobileapp.mymobileapp.ui.albums.CreateAlbumFragment"
-        android:label="@string/title_create_album"
+        android:label="@string/title_create_album_description"
+        android:contentDescription="Main screen title: Create album"
+        android:textSize="16sp"
         tools:layout="@layout/fragment_create_album" />
 
     <fragment
         android:id="@+id/addTrackToAlbumFragment"
         android:name="com.mobileapp.mymobileapp.ui.albums.AddTrackToAlbumFragment"
+        android:textSize="16sp"
         android:label="@string/add_track_title">
         <argument
             android:name="albumId"

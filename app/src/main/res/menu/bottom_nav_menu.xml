@@ -4,7 +4,7 @@
     <item
         android:id="@+id/navigation_albums"
         android:icon="@drawable/ic_library_music_24px"
-        android:title="@string/title_albums" />
+        android:title="@string/button_albums" />
 
     <item
         android:id="@+id/navigation_artists"

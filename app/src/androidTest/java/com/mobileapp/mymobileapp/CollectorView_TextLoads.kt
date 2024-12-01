@@ -59,7 +59,7 @@ class CollectorView_TextLoads {
 
         val textView2 = onView(
             allOf(
-                withText("Collectors"),
+                withText("Lista de coleccionistas"),
                 withParent(
                     allOf(
                         withId(com.bumptech.glide.R.id.action_bar),
@@ -69,7 +69,8 @@ class CollectorView_TextLoads {
                 isDisplayed()
             )
         )
-        textView2.check(matches(withText("Collectors")))
+        Thread.sleep(2000)
+        textView2.check(matches(withText("Lista de coleccionistas")))
 
         val imageView = onView(
             allOf(
