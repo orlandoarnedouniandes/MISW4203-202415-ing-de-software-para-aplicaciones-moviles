@@ -93,6 +93,7 @@ class CollectorView_searchAndFilter {
                 isDisplayed()
             )
         )
+        Thread.sleep(2000)
         searchAutoComplete.perform(replaceText("ma"), closeSoftKeyboard())
 
         val textView = onView(
